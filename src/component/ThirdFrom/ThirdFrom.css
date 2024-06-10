@@ -52,4 +52,31 @@
   .prev-button:hover{
     background-color: cadetblue;
   }
+
+
+  .submit-button{
+    margin-left: 20px;
+  }
   
+
+  .family-member {
+    display: flex; /* Display family member details and images in a row */
+    align-items: flex-start; /* Align items at the start of the container */
+  }
+  
+  .member-details {
+    flex: 1; /* Take up remaining space */
+  }
+  
+  .image-container {
+    margin-left: 20px; /* Add spacing between details and images */
+    width: 40%; /* Set width for image container */
+  }
+  
+  .image-container img {
+    width: 100%; /* Ensure images fill the container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+    margin-bottom: 30px;
+  }

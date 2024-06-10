@@ -72,7 +72,7 @@ const FamilyDetailsForm: React.FC<FamilyDetailsFormProps> = ({
       // setAppenddd(appendd-1);
     }
   };
-
+// make all components shared
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className="family-details-form">
       <h2>Family Details</h2>
@@ -147,6 +147,8 @@ const FamilyDetailsForm: React.FC<FamilyDetailsFormProps> = ({
               </p>
             )}
           </div>
+
+          {/* //hello */}
           {index !== 0 && ( // Only show Remove button for fields other than the first one
             <button
               type="button"
@@ -159,6 +161,8 @@ const FamilyDetailsForm: React.FC<FamilyDetailsFormProps> = ({
           <hr />
         </div>
       ))}
+
+      {/* make it common */}
       <button type="button" onClick={handleAddField} className="add-button">
         + Add Family Member
       </button>

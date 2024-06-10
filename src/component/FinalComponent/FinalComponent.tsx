@@ -1,58 +1,47 @@
 import React from "react";
-import "./FinalComponent.css"; // Import the CSS file
 
-interface FamilyMember {
-  firstName: string;
-  lastName: string;
-  relation: string;
-  age: string;
-  images: File[];
-}
-
-interface AllDetailsSummaryProps {
+interface DetailsProps {
   personalDetails: Record<string, any>;
-  familyDetails: FamilyMember[];
-  uploadedImages: Array<File[]>;
+  familyDetails: { firstName: string; lastName: string; relation: string; age: string; images: File[] }[];
 }
 
-const AllDetailsSummary: React.FC<AllDetailsSummaryProps> = ({
-  personalDetails,
-  familyDetails,
-  uploadedImages,
-}) => {
+const SummaryDetails: React.FC<DetailsProps> = ({ personalDetails, familyDetails }) => {
   return (
-    <div className="all-details-summary"> {/* Add the class here */}
-      <h2>All Details Summary</h2>
+    <div className="details">
+      {/* Render personal details */}
       <h3>Personal Details</h3>
-      <p><strong>First Name:</strong> {personalDetails.firstName}</p>
-      <p><strong>Last Name:</strong> {personalDetails.lastName}</p>
-      <p><strong>Age:</strong> {personalDetails.age}</p>
-      <p><strong>Date of Birth:</strong> {personalDetails.dob}</p>
-      <p><strong>Gender:</strong> {personalDetails.gender}</p>
+      {Object.entries(personalDetails).map(([key, value]) => (
+        <p key={key}>
+          <strong>{key}:</strong> {value}
+        </p>
+      ))}
+      {/* Render family details */}
       <h3>Family Details</h3>
       {familyDetails.map((member, index) => (
-        <div key={index} className="family-member"> {/* Add the class here */}
+        <div key={index}>
           <h4>Family Member {index + 1}</h4>
-          <p><strong>First Name:</strong> {member.firstName}</p>
-          <p><strong>Last Name:</strong> {member.lastName}</p>
-          <p><strong>Relation:</strong> {member.relation}</p>
-          <p><strong>Age:</strong> {member.age}</p>
-          <h3>Uploaded Images</h3>
-          <div className="uploaded-images"> {/* Add the class here */}
-            {uploadedImages[index]?.map((file, i) => (
-              <img
-                key={i}
-                src={URL.createObjectURL(file)}
-                alt={`Family Member ${index + 1} Image ${i + 1}`}
-                className="image-preview"
-              />
-            ))}
-          </div>
-          <hr />
+          <p>
+            <strong>First Name:</strong> {member.firstName}
+          </p>
+          <p>
+            <strong>Last Name:</strong> {member.lastName}
+          </p>
+          <p>
+            <strong>Relation:</strong> {member.relation}
+          </p>
+          <p>
+            <strong>Age:</strong> {member.age}
+          </p>
+          {/* Render images for each family member */}
+          {member.images.map((image, i) => (
+            <div key={i}>
+              <img src={URL.createObjectURL(image)} alt={`Family Member ${index + 1} Image ${i + 1}`} className="image-preview" />
+            </div>
+          ))}
         </div>
       ))}
     </div>
   );
 };
 
-export default AllDetailsSummary;
+export default SummaryDetails;

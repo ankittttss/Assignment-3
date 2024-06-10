@@ -4,7 +4,6 @@ import PersonalDetailsForm from "../src/component/PersonalDetails/PersonalDetail
 import FamilyDetailsForm from "../src/component/FamilyDetails/FamilyDetails";
 import SummaryForm from "../src/component/ThirdFrom/ThirdForm";
 import Stepper from "../src/component/SharedComponent/Stepper/Stepper";
-import FinalForm from "../src/component/FinalComponent/FinalComponent"
 import "./App.css";
 
 const steps = ["PersonalDetails", "FamilyDetails", "ImageUploading"]; // Used In Stepper to identify at what page we are
@@ -14,6 +13,7 @@ const MultiStepForm: React.FC = () => {
   const [personalDetails, setPersonalDetails] = useState({});
   const [familyDetails, setFamilyDetails] = useState([]);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [formSubmitted, setFormSubmitted] = useState(false); // Track form submission status
 
   const handlePersonalDetailsSubmit = (data: any) => {
     setPersonalDetails(data);
@@ -34,13 +34,13 @@ const MultiStepForm: React.FC = () => {
   };
 
   const handleFinalSubmit = () =>{
+    setFormSubmitted(true); // Set form submission status to true upon final submission
     setStep(4);
   }
-  console.log(uploadedImage);
 
   return (
     <div className="multi-step-form">
-      <Stepper steps={steps} currentStep={step} />
+      <Stepper steps={steps} currentStep={step} formSubmitted={formSubmitted} />
       {step === 1 && (
         <PersonalDetailsForm
           onSubmit={handlePersonalDetailsSubmit}
@@ -61,9 +61,9 @@ const MultiStepForm: React.FC = () => {
           uploadedImage={uploadedImage}
           onImageUpload={handleImageUpload}
           onPrevious={handlePrevious}
+          onSubmit={handleFinalSubmit} // Pass the onSubmit handler to SummaryForm
         />
       )}
-
     </div>
   );
 };
