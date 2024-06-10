@@ -35,6 +35,7 @@ const FamilyDetailsForm: React.FC<FamilyDetailsFormProps> = ({
   } = useForm<FormValues>({
     // Initialises the form state and methods provided//
     defaultValues,
+    mode:'onTouched'
   });
 
   const { fields, append, remove } = useFieldArray({

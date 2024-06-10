@@ -34,6 +34,7 @@ const SummaryForm: React.FC<SummaryFormProps> = ({
     if (e.target.files) {
       const files = Array.from(e.target.files);
       const previews = files.map((file) => URL.createObjectURL(file));
+      console.log(previews)
       const updatedPreviews = [...imagePreviews];
       updatedPreviews[index] = previews; // Update the previews for the current family member
       setImagePreviews(updatedPreviews);
@@ -48,6 +49,12 @@ const SummaryForm: React.FC<SummaryFormProps> = ({
       <h2>Summary</h2>
       <h3>Personal Details</h3>
       {/* Render personal details */}
+      {Object.entries(personalDetails).map(([key, value]) => (
+        <p key={key}>
+          <strong>{key}:</strong> {value}
+        </p>
+      ))}
+      
       <h3>Family Details</h3>
       {familyDetails.map((member, index) => (
         <div key={index}>
@@ -85,8 +92,11 @@ const SummaryForm: React.FC<SummaryFormProps> = ({
         </div>
       ))}
       {/* Previous button */}
-      <button onClick={onPrevious} className="previous-button">
+      <button onClick={onPrevious} className="prev-button">
         Previous
+      </button>
+      <button className="previous-button">
+          Submit
       </button>
     </div>
   );

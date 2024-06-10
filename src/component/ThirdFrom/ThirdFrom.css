@@ -23,12 +23,13 @@
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Add border-radius for rounded corners */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+    margin-bottom: 30px;
   }
   
   .previous-button {
     margin-top: 20px; /* Increased margin for better spacing */
     padding: 10px 20px;
-    background-color: #ddd;
+    background-color: lightcoral;
     border: none;
     border-radius: 5px; /* Add border-radius for rounded corners */
     cursor: pointer;
@@ -36,6 +37,19 @@
   }
   
   .previous-button:hover {
-    background-color: #ccc;
+    background-color: cadetblue;
+  }
+  .prev-button{
+    margin-top: 20px; /* Increased margin for better spacing */
+    padding: 10px 20px;
+    background-color: lightcoral;
+    border: none;
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .prev-button:hover{
+    background-color: cadetblue;
   }
   

@@ -1,73 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import './PersonalDetails.css';
 
 interface PersonalDetailsFormProps {
-  onSubmit: (data: Record<string, any>) => void; // Function to submit details
-  defaultValues: Record<string, any>; // Add defaultValues prop
+  onSubmit: (data: Record<string, any>) => void;
+  defaultValues: Record<string, any>;
 }
 
 const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({ onSubmit, defaultValues }) => {
-  const { control, handleSubmit } = useForm({
-    defaultValues: defaultValues // Set default values here
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: defaultValues,
+    mode: 'onTouched'
   });
-  const [errors, setErrors] = useState<{ [key: string]: string | undefined }>({});
 
-  const handleFormSubmit = (data: any) => {  // It will validate the data 
-    if (validateForm(data)) {
-      onSubmit(data);
-    }
+  const handleFormSubmit = (data: any) => {
+    onSubmit(data);
   };
 
-  const validateForm = (data: any) => {
-    let isValid = true;
-    const errors: { [key: string]: string | undefined } = {};
-  
-    // First Name validation
-    if (!data.firstName) {
-      errors.firstName = 'First Name is required';
-      isValid = false;
-    }
-  
-    // Last Name validation
-    if (!data.lastName) {
-      errors.lastName = 'Last Name is required';
-      isValid = false;
-    }
-  
-    // Age validation
-    if (!data.age) {
-      errors.age = 'Age is required';
-      isValid = false;
-    } else if (parseInt(data.age) < 18 || parseInt(data.age) > 100) {
-      errors.age = 'Age must be between 18 and 100';
-      isValid = false;
-    }
-  
-    // Date of Birth validation
-    if (!data.dob) {
-      errors.dob = 'Date of Birth is required';
-      isValid = false;
-    } else {
-      const selectedDate = new Date(data.dob);
-      const currentDate = new Date();
-      if (selectedDate >= currentDate) {
-        errors.dob = 'Date of Birth must be less than the current date';
-        isValid = false;
-      }
-    }
-  
-    // Gender validation
-    if (!data.gender) {
-      errors.gender = 'Gender is required';
-      isValid = false;
-    }
-  
-    setErrors(errors);
-    return isValid;
+  const validateDOB = (value: string) => {
+    const selectedDate = new Date(value);
+    const currentDate = new Date();
+    return selectedDate <= currentDate || "Date of Birth cannot be in the future";
   };
-  
-  
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="personal-details-form">
@@ -77,42 +31,70 @@ const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({ onSubmit, def
         <Controller
           control={control}
           name="firstName"
+          rules={{ required: "First Name is required" }}
           render={({ field }) => <input className='inp' {...field} />}
         />
-        {errors.firstName && <p className="error">{errors.firstName}</p>}
+        {errors.firstName && (
+          <p className="error">
+            {errors.firstName.message as string}
+          </p>
+        )}
       </div>
       <div className="form-group">
         <label className='label'>Last Name</label>
         <Controller
           control={control}
           name="lastName"
+          rules={{ required: "Last Name is required" }}
           render={({ field }) => <input className='inp' {...field} />}
         />
-        {errors.lastName && <p className="error">{errors.lastName}</p>}
+        {errors.lastName && (
+          <p className="error">
+            {errors.lastName.message as string}
+          </p>
+        )}
       </div>
       <div className="form-group">
         <label className='label'>Age</label>
         <Controller
           control={control}
           name="age"
+          rules={{
+            required: "Age is required",
+            min: { value: 1, message: "Age must be at least 1" },
+            max: { value: 120, message: "Age must be less than or equal to 120" }
+          }}
           render={({ field }) => <input type="number" className='inp' {...field} />}
         />
-        {errors.age && <p className="error">{errors.age}</p>}
+        {errors.age && (
+          <p className="error">
+            {errors.age.message as string}
+          </p>
+        )}
       </div>
       <div className="form-group">
         <label className='label'>Date of Birth</label>
         <Controller
           control={control}
           name="dob"
+          rules={{ 
+            required: "Date of Birth is required",
+            validate: validateDOB
+          }}
           render={({ field }) => <input type="date" className='inp' {...field} />}
         />
-        {errors.dob && <p className="error">{errors.dob}</p>}
+        {errors.dob && (
+          <p className="error">
+            {errors.dob.message as string}
+          </p>
+        )}
       </div>
       <div className="form-group">
         <label className='label'>Gender</label>
         <Controller
           control={control}
           name="gender"
+          rules={{ required: "Gender is required" }}
           render={({ field }) => (
             <select className='inp' {...field}>
               <option value="">Select Gender</option>
@@ -122,7 +104,11 @@ const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({ onSubmit, def
             </select>
           )}
         />
-        {errors.gender && <p className="error">{errors.gender}</p>}
+        {errors.gender && (
+          <p className="error">
+            {errors.gender.message as string}
+          </p>
+        )}
       </div>
       <button type="submit" className='nxt'>Next</button>
     </form>

@@ -1,0 +1,41 @@
+/* AllDetailsSummary.css */
+
+.all-details-summary {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .all-details-summary h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .all-details-summary h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .all-details-summary p {
+    margin-bottom: 5px;
+  }
+  
+  .family-member {
+    margin-top: 20px;
+  }
+  
+  .family-member h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .uploaded-images {
+    margin-top: 10px;
+  }
+  
+  .uploaded-images img {
+    max-width: 100px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
