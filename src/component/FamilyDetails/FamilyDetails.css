@@ -1,0 +1,90 @@
+.family-details-form {
+    width: 300px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  
+  .family-details-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .inp {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .add-button,
+  .submit-button,
+  .previous-button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .add-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    margin-right: 40px;
+  }
+  
+  .add-button:hover {
+    background-color: #45a049;
+  }
+  
+  .submit-button {
+    background-color: #008cba;
+    color: white;
+    border: none;
+  }
+  
+  .previous-button {
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    margin-left: 40px;
+  }
+  
+  .previous-button:hover,
+  .submit-button:hover {
+    opacity: 0.8;
+  }
+  
+  .remove-button {
+    background-color: #ff6347; /* Red color */
+    color: #fff; /* White text */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 200px;
+    height: 3%;
+  }
+  
+  .remove-button:hover {
+    background-color: #cc4a39; /* Darker red color on hover */
+  }
+  
