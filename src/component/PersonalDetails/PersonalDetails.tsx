@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import "./PersonalDetails.css";
+import FormInput from "../SharedComponent/Input/Input";
 
 interface PersonalDetailsFormProps {
   onSubmit: (data: Record<string, any>) => void;
@@ -69,50 +70,45 @@ const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({
     >
       <h2>Personal Details</h2>
       <div className="form-group">
-    {/* Make common input */}
-        <label className="label">First Name</label>
-        <Controller
-          control={control}
+        {/* Make common input */}
+        <FormInput
           name="firstName"
+          control={control}
+          label="First Name"
+          type="text"
           rules={{ required: "First Name is required" }}
-          render={({ field }) => <input className="inp" {...field} />}
+          defaultValue={defaultValues.firstName}
         />
-        {/* Make error common */}
         {errors.firstName && (
           <p className="error">{errors.firstName.message as string}</p>
         )}
       </div>
       <div className="form-group">
-        <label className="label">Last Name</label>
-        <Controller
-          control={control}
+        <FormInput
           name="lastName"
+          control={control}
+          label="Last Name"
+          type="text"
           rules={{ required: "Last Name is required" }}
-          render={({ field }) => <input className="inp" {...field} />}
+          defaultValue={defaultValues.lastName}
         />
         {errors.lastName && (
           <p className="error">{errors.lastName.message as string}</p>
         )}
       </div>
       <div className="form-group">
-        <label className="label">Age</label>
-        <Controller
-          control={control}
+        <FormInput
           name="age"
-          rules={{
-            required: "Age is required",
-            min: { value: 1, message: "Age must be at least 1" },
-            max: {
-              value: 120,
-              message: "Age must be less than or equal to 120",
-            },
-            validate: validateAge,
+          control={control}
+          label="age"
+          type="text"
+          rules={{ required: "Age is required" ,
+            validate:validateAge
           }}
-          render={({ field }) => (
-            <input type="number" className="inp" {...field} />
-          )}
+          defaultValue={defaultValues.age}
         />
         {errors.age && <p className="error">{errors.age.message as string}</p>}
+
       </div>
       <div className="form-group">
         <label className="label">Date of Birth</label>
