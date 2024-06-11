@@ -1,11 +1,22 @@
 import React from "react";
-
+import { useContext, useState } from "react";
+import { CounterContext } from "../Context/Context";
 interface DetailsProps {
   personalDetails: Record<string, any>;
-  familyDetails: { firstName: string; lastName: string; relation: string; age: string; images: File[] }[];
+  familyDetails: {
+    firstName: string;
+    lastName: string;
+    relation: string;
+    age: string;
+    images: File[];
+  }[];
 }
 
-const SummaryDetails: React.FC<DetailsProps> = ({ personalDetails, familyDetails }) => {
+const SummaryDetails: React.FC<DetailsProps> = ({
+  personalDetails,
+  familyDetails,
+}) => {
+  const counterContext = useContext(CounterContext);
   return (
     <div className="details">
       {/* Render personal details */}
@@ -35,7 +46,11 @@ const SummaryDetails: React.FC<DetailsProps> = ({ personalDetails, familyDetails
           {/* Render images for each family member */}
           {member.images.map((image, i) => (
             <div key={i}>
-              <img src={URL.createObjectURL(image)} alt={`Family Member ${index + 1} Image ${i + 1}`} className="image-preview" />
+              <img
+                src={URL.createObjectURL(image)}
+                alt={`Family Member ${index + 1} Image ${i + 1}`}
+                className="image-preview"
+              />
             </div>
           ))}
         </div>

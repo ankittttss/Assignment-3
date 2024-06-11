@@ -3,6 +3,9 @@ import { useForm, Controller } from "react-hook-form";
 import "./PersonalDetails.css";
 import FormInput from "../SharedComponent/Input/Input";
 
+import { useContext } from "react";
+import { CounterContext } from "../Context/Context";
+
 interface PersonalDetailsFormProps {
   onSubmit: (data: Record<string, any>) => void;
   defaultValues: Record<string, any>;
@@ -26,6 +29,9 @@ const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({
     onSubmit(data);
   };
 
+  const counterstate = useContext(CounterContext);
+  console.log(counterstate);
+
   const validateDOB = (value: string) => {
     const selectedDate = new Date(value);
     const currentDate = new Date();
@@ -37,17 +43,10 @@ const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({
   const watchDOB = watch("dob"); // Watching the 'dob' field
 
   const validateAge = (value: string) => {
-    // If DOB is not filled yet, return true
     if (!watchDOB) return true;
-
-    // Convert DOB string to Date object
     const dob = new Date(watchDOB);
-
-    // Calculate the number of years lived
     const currentDate = new Date();
     let yearsDifference = currentDate.getFullYear() - dob.getFullYear();
-
-    // Adjust the difference based on the month and day of birth
     if (
       currentDate.getMonth() < dob.getMonth() ||
       (currentDate.getMonth() === dob.getMonth() &&
@@ -55,11 +54,7 @@ const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({
     ) {
       yearsDifference--;
     }
-
-    // Convert entered age to number
     const age = parseInt(value);
-
-    // Check if the number of years lived matches the entered age
     return yearsDifference === age;
   };
 
@@ -102,13 +97,10 @@ const PersonalDetailsForm: React.FC<PersonalDetailsFormProps> = ({
           control={control}
           label="age"
           type="text"
-          rules={{ required: "Age is required" ,
-            validate:validateAge
-          }}
+          rules={{ required: "Age is required", validate: validateAge }}
           defaultValue={defaultValues.age}
         />
         {errors.age && <p className="error">{errors.age.message as string}</p>}
-
       </div>
       <div className="form-group">
         <label className="label">Date of Birth</label>
